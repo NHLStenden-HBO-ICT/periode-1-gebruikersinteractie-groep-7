@@ -1,0 +1,70 @@
+﻿<Window x:Class="Road_Racers_1._0.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Road_Racers_1._0"
+        mc:Ignorable="d"
+        Title="WindowHome" Height="450" Width="800">
+    <Grid Height="434" VerticalAlignment="Bottom">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="40" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="245*" />
+            <RowDefinition Height="129*"/>
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+
+        <Image Grid.ColumnSpan="6" Margin="0,5,0,0" Grid.RowSpan="3" Grid.Row="4" Source="/home achtergrond.png" Stretch="Fill"/>
+
+        <TextBlock Grid.Column="1" Grid.Row="0"  FontFamily="Raleway" 
+                   FontSize="28"
+                   TextAlignment="Center" FontWeight="DemiBold" Grid.ColumnSpan="4"><Run Text="Road race"/></TextBlock>
+
+        <Button Grid.Column="0" Grid.Row="0"  Click="OnSearch" >
+            <Image Grid.Column="0" Grid.Row="0" Source="/tandwiel.png" Stretch="Fill"/>
+        </Button>
+
+        <Button Grid.Column="5" Grid.Row="0"  Click="OnSearch" >
+            <Image Grid.Column="5" Grid.Row="0" Source="/boek.png" Stretch="Fill"/>
+        </Button>
+
+        <Button x:Name="Leaderboard" Grid.Column="1" Grid.Row="6" Click="OnSearch" 
+                Grid.ColumnSpan="4" Margin="107,0,107,0" FontSize="18">
+            <Image Height="40" Source="/trofee.png" Stretch="Fill" Width="40" Margin="0,0,460,0"/>
+        </Button>
+
+        <TextBlock Grid.Row="6" Grid.Column="4" TextAlignment="Center"
+                   Margin="143,10,250,10" FontSize="18" FontFamily="Raleway"><Run Text="LeaderBoard"/></TextBlock>
+
+        <TextBlock Grid.Column="1" Grid.Row="0" FontFamily="Raleway" 
+                  FontSize="18" TextAlignment="Left" Margin="10,10,10,10"><Run Text="Instelingen"/></TextBlock>
+
+        <TextBlock Grid.Column="4" Grid.Row="0" FontFamily="Raleway" 
+           FontSize="18" TextAlignment="Right" Margin="10,10,10,10"><Run Text="Uitleg"/>
+        </TextBlock>
+
+        <Border Grid.Column="4" Grid.Row="4" Margin="199,61,306,61" Grid.RowSpan="2" Visibility="Visible" Background="LightGray">
+            <Button>
+                <Image Height="162" Source="/splitscreen.png" Stretch="Fill" Width="108"/>
+            </Button>
+        </Border>
+
+        <TextBlock Grid.Column="4" Margin="218,30,325,76" Grid.Row="5" 
+                   TextAlignment="Center">
+           Splitscreen
+        </TextBlock>
+
+    </Grid>
+</Window>
