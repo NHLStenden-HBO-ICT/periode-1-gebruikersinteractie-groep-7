@@ -19,7 +19,7 @@ namespace Road_Racers_1._0
     {
         private DispatcherTimer GameTimer = new DispatcherTimer();
         private bool UpKeyPressed, DownKeyPressed, LeftKeyPressed, RightKeyPressed;
-        private float SpeedX, SpeedY, Friction = 0.50f, Speed = 2;
+        private float SpeedX, SpeedY, Friction = 0.60f, Speed = 2;
         private bool UpArrowPressed, DownArrowPressed, LeftArrowPressed, RightArrowPressed;
         private float PlayerSpeedX, PlayerSpeedY;
 
