@@ -9,8 +9,10 @@
     <Grid>
         <Canvas x:Name="GameScreen" Focusable="True" KeyUp="KeyboardUp" KeyDown="KeyboardDown">
             <Rectangle Canvas.Left="150" Canvas.Top="276" Fill="Red" Width="50" Height="50" x:Name="Player" ></Rectangle>
-            <Image Source="Motor.png" Width="200" Height="200" Canvas.Top="11" x:Name="Motor"/>
+            <Rectangle x:Name="Motors" Fill="Blue" Width="50" Height="50" Canvas.Left="95" Canvas.Top="107" HorizontalAlignment="Left" VerticalAlignment="Center"  ></Rectangle>
             <Rectangle Canvas.Top="207" Height="5" Width="801" Fill="Black" HorizontalAlignment="Left" VerticalAlignment="Center"></Rectangle>
+            <Image Source="Bike.png" Width="50" Height="50" Canvas.Top="107" x:Name="Motor" Canvas.Left="150"/>
         </Canvas>
     </Grid>
 </Window>
+

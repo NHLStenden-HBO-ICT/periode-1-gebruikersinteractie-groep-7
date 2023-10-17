@@ -19,7 +19,7 @@ namespace Road_Racers_1._0
     {
         private DispatcherTimer GameTimer = new DispatcherTimer();
         private bool UpKeyPressed, DownKeyPressed, LeftKeyPressed, RightKeyPressed;
-        private float SpeedX, SpeedY, Friction = 0.50f, Speed = 2;
+        private float MotorSpeedX, MotorSpeedY, Friction = 0.70f, Speed = 2;
         private bool UpArrowPressed, DownArrowPressed, LeftArrowPressed, RightArrowPressed;
         private float PlayerSpeedX, PlayerSpeedY;
 
@@ -120,22 +120,22 @@ namespace Road_Racers_1._0
             // Motor movement
             if (UpKeyPressed)
             {
-                SpeedY -= Speed; // Change direction for moving up
+                MotorSpeedY -= Speed; // Change direction for moving up
             }
 
             if (RightKeyPressed)
             {
-                SpeedX -= Speed; // Change direction for moving right
+                MotorSpeedX += Speed; // Change direction for moving right
             }
 
             if (DownKeyPressed)
             {
-                SpeedY += Speed; // Change direction for moving down
+                MotorSpeedY += Speed; // Change direction for moving down
             }
-
+            
             if (LeftKeyPressed)
             {
-                SpeedX += Speed; // Change direction for moving left
+                MotorSpeedX -= Speed; // Change direction for moving left
             }
 
             // Player movement
@@ -160,14 +160,14 @@ namespace Road_Racers_1._0
             }
 
             // Apply friction to both the motor and the player
-            SpeedX = SpeedX * Friction;
-            SpeedY = SpeedY * Friction;
+            MotorSpeedX = MotorSpeedX * Friction;
+            MotorSpeedY = MotorSpeedY * Friction;
             PlayerSpeedX = PlayerSpeedX * Friction;
             PlayerSpeedY = PlayerSpeedY * Friction;
 
             // Update the position of the motor and the player
-            Canvas.SetLeft(Motor, Canvas.GetLeft(Motor) + SpeedX);
-            Canvas.SetTop(Motor, Canvas.GetTop(Motor) + SpeedY);
+            Canvas.SetLeft(Motor, Canvas.GetLeft(Motor) + MotorSpeedX);
+            Canvas.SetTop(Motor, Canvas.GetTop(Motor) + MotorSpeedY);
 
             Canvas.SetLeft(Player, Canvas.GetLeft(Player) + PlayerSpeedX);
             Canvas.SetTop(Player, Canvas.GetTop(Player) + PlayerSpeedY);
