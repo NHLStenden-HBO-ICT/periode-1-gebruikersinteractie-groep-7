@@ -66,11 +66,11 @@ namespace Road_Racers_1._0
 
         private void KeyboardUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.W)
+            if (e.Key == Key.A)
             {
                 UpKeyPressed = false;
             }
-            if (e.Key == Key.A)
+            if (e.Key == Key.S)
             {
                 LeftKeyPressed = false;
             }
@@ -80,7 +80,7 @@ namespace Road_Racers_1._0
                 RightKeyPressed = false;
             }
 
-            if (e.Key == Key.S)
+            if (e.Key == Key.W)
             {
                 DownKeyPressed = false;
             }
