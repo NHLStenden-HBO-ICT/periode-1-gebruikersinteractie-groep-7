@@ -1,34 +1,40 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+
 namespace Road_Racers_1._0
 {
     public partial class MainWindow : Window
     {
         private DispatcherTimer GameTimer = new DispatcherTimer();
-        private bool UpKeyPressed, DownKeyPressed, LeftKeyPressed, RightKeyPressed, falling = true;
-        private float MotorSpeedX, MotorSpeedY, Friction = 0f, Speed = 2;
-        private bool UpArrowPressed, DownArrowPressed, LeftArrowPressed, RightArrowPressed;
-        private float PlayerSpeedX, PlayerSpeedY;
+        private bool UpArrowPressed, LeftArrowPressed, RightArrowPressed, UpKeyPressed, LeftKeyPressed, RightKeyPressed;
+        private bool Driveable = true ;
+        public float PlayerFuel = 100, MotorFuel;
+
+        private double gravity = 0.5; // Adjust the gravity strength as needed
+
+       
+
+
 
         private void KeyboardDown(object sender, KeyEventArgs e)
         {
+            if (e.Key == Key.Up)
+                UpArrowPressed = true;
+            if (e.Key == Key.Left)
+                LeftArrowPressed = true;
+            if (e.Key == Key.Right)
+                RightArrowPressed = true;
+
             if (e.Key == Key.W)
             {
                 UpKeyPressed = true;
             }
+
             if (e.Key == Key.A)
             {
                 LeftKeyPressed = true;
@@ -39,28 +45,22 @@ namespace Road_Racers_1._0
                 RightKeyPressed = true;
             }
 
-            if (e.Key == Key.Up)
-            {
-                UpArrowPressed = true;
-            }
-            if (e.Key == Key.Left)
-            {
-                LeftArrowPressed = true;
-            }
-
-            if (e.Key == Key.Right)
-            {
-                RightArrowPressed = true;
-            }
-
         }
 
         private void KeyboardUp(object sender, KeyEventArgs e)
         {
+            if (e.Key == Key.Up)
+                UpArrowPressed = false;
+            if (e.Key == Key.Left)
+                LeftArrowPressed = false;
+            if (e.Key == Key.Right)
+                RightArrowPressed = false;
+
             if (e.Key == Key.W)
             {
                 UpKeyPressed = false;
             }
+
             if (e.Key == Key.A)
             {
                 LeftKeyPressed = false;
@@ -70,21 +70,6 @@ namespace Road_Racers_1._0
             {
                 RightKeyPressed = false;
             }
-
-            if (e.Key == Key.Up)
-            {
-                UpArrowPressed = false;
-            }
-            if (e.Key == Key.Left)
-            {
-                LeftArrowPressed = false;
-            }
-
-            if (e.Key == Key.Right)
-            {
-                RightArrowPressed = false;
-            }
-
         }
 
         public MainWindow()
@@ -99,76 +84,91 @@ namespace Road_Racers_1._0
 
         private void GameTick(object sender, EventArgs e)
         {
-            // Motor movement
-            if (UpKeyPressed)
-            {
-                Canvas.SetTop(Motor, Canvas.GetTop(Motor) - 5);
-                falling = true;
-            }
+            MovePlayer();
+            MoveMotor();
+        }
 
-            if (RightKeyPressed)
-            {
-                Canvas.SetLeft(Motor, Canvas.GetLeft(Motor) + 10);
-            }
-            
-            if (LeftKeyPressed)
-            {
-                    Canvas.SetLeft(Motor, Canvas.GetLeft(Motor) - 10);
-            }
+        private double playerSpeedY = 0; // Initialize the vertical speed of the player
 
-            // Player movement
+        private void MovePlayer()
+        {
+            double playerSpeedX = 0;
+
             if (UpArrowPressed)
-            {
-                Canvas.SetTop(Player, Canvas.GetTop(Player) - 5);
-                falling = true;
-            }
-
+                playerSpeedY -= 1; // Jumping
             if (RightArrowPressed)
-            {
-                Canvas.SetLeft(Player, Canvas.GetLeft(Player) + 10);
-            }
-
+                playerSpeedX = 5;
             if (LeftArrowPressed)
+                playerSpeedX = -5;
+
+            // Apply gravity to the player
+            playerSpeedY += gravity;
+
+            // Update the position of the player
+            Canvas.SetLeft(Player, Canvas.GetLeft(Player) + playerSpeedX);
+            Canvas.SetTop(Player, Canvas.GetTop(Player) + playerSpeedY);
+
+            // Detect ground or floor collision (for example, with a barrier)
+            if (Canvas.GetTop(Player) + Player.Height >= Canvas.GetTop(Barrier))
             {
-                Canvas.SetLeft(Player, Canvas.GetLeft(Player) - 10);
+                // Stop the player from falling through the ground
+                Canvas.SetTop(Player, Canvas.GetTop(Barrier) - Player.Height);
+                playerSpeedY = 0;
             }
 
-            if (falling)
+            if (PlayerFuel == 0.0)
             {
-                Canvas.SetTop(Player, Canvas.GetTop(Player) + 1);
-                Canvas.SetTop(Motor, Canvas.GetTop(Motor) + 1);
+                Driveable = false;
             }
 
-            Rect PlayerRect = new Rect(Canvas.GetLeft(Player), Canvas.GetTop(Player), Player.Width, Player.Height);
-            Rect BarrierRect = new Rect(Canvas.GetLeft(Barrier), Canvas.GetTop(Barrier), Barrier.Width, Barrier.Height);
-            if (PlayerRect.IntersectsWith(BarrierRect))
+            if (Driveable == false)
             {
-                falling = false;
+                playerSpeedX = 0;
+                playerSpeedY = 0;
             }
 
-            Rect MotorRect = new Rect(Canvas.GetLeft(Motor), Canvas.GetTop(Motor), Motor.Width, Motor.Height);
-            Rect Barrier2Rect = new Rect(Canvas.GetLeft(Barrier2), Canvas.GetTop(Barrier2), Barrier2.Width, Barrier2.Height);
+        
+            
+        }
 
-            if (MotorRect.IntersectsWith(Barrier2Rect))
-            {
-                falling = false;
-            }
+        private double MotorSpeedY = 0; // Initialize the vertical speed of the motor
 
+        private void MoveMotor()
+        {
+            double MotorSpeedX = 0;
 
-            // Apply friction to both the motor and the player
-            MotorSpeedX = MotorSpeedX * Friction;
-            MotorSpeedY = MotorSpeedY * Friction;
-            PlayerSpeedX = PlayerSpeedX * Friction;
-            PlayerSpeedY = PlayerSpeedY * Friction;
+            if (UpKeyPressed)
+                MotorSpeedY -= 1; // Jumping
+            if (RightKeyPressed)
+                MotorSpeedX = 5;
+            if (LeftKeyPressed)
+                MotorSpeedX = -5;
 
-            // Update the position of the motor and the player
+            // Apply gravity to the motor
+            MotorSpeedY += gravity;
+
+            // Update the position of the motor
             Canvas.SetLeft(Motor, Canvas.GetLeft(Motor) + MotorSpeedX);
             Canvas.SetTop(Motor, Canvas.GetTop(Motor) + MotorSpeedY);
 
-            Canvas.SetLeft(Player, Canvas.GetLeft(Player) + PlayerSpeedX);
-            Canvas.SetTop(Player, Canvas.GetTop(Player) + PlayerSpeedY);
+            // Detect ground or floor collision (for example, with Barrier2)
+            if (Canvas.GetTop(Motor) + Motor.Height >= Canvas.GetTop(Barrier2))
+            {
+                // Stop the motor from falling through the ground
+                Canvas.SetTop(Motor, Canvas.GetTop(Barrier2) - Motor.Height);
+                MotorSpeedY = 0;
+            }
+      
+            if (MotorFuel == 0.0)
+            {
+                Driveable = false;
+            }
+
+            if (Driveable == false)
+            {
+                MotorSpeedX = 0;
+                MotorSpeedY = 0;
+            }
         }
-
-
     }
 }
