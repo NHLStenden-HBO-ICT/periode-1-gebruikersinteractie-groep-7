@@ -18,8 +18,8 @@ namespace Road_Racers_1._0
     public partial class MainWindow : Window
     {
         private DispatcherTimer GameTimer = new DispatcherTimer();
-        private bool UpKeyPressed, DownKeyPressed, LeftKeyPressed, RightKeyPressed;
-        private float MotorSpeedX, MotorSpeedY, Friction = 0.70f, Speed = 2;
+        private bool UpKeyPressed, DownKeyPressed, LeftKeyPressed, RightKeyPressed, falling = true;
+        private float MotorSpeedX, MotorSpeedY, Friction = 0f, Speed = 2;
         private bool UpArrowPressed, DownArrowPressed, LeftArrowPressed, RightArrowPressed;
         private float PlayerSpeedX, PlayerSpeedY;
 
@@ -39,11 +39,6 @@ namespace Road_Racers_1._0
                 RightKeyPressed = true;
             }
 
-            if (e.Key == Key.S)
-            {
-                DownKeyPressed = true;
-            }
-
             if (e.Key == Key.Up)
             {
                 UpArrowPressed = true;
@@ -58,10 +53,6 @@ namespace Road_Racers_1._0
                 RightArrowPressed = true;
             }
 
-            if (e.Key == Key.Down)
-            {
-                DownArrowPressed = true;
-            }
         }
 
         private void KeyboardUp(object sender, KeyEventArgs e)
@@ -80,11 +71,6 @@ namespace Road_Racers_1._0
                 RightKeyPressed = false;
             }
 
-            if (e.Key == Key.S)
-            {
-                DownKeyPressed = false;
-            }
-
             if (e.Key == Key.Up)
             {
                 UpArrowPressed = false;
@@ -99,10 +85,6 @@ namespace Road_Racers_1._0
                 RightArrowPressed = false;
             }
 
-            if (e.Key == Key.Down)
-            {
-                DownArrowPressed = false;
-            }
         }
 
         public MainWindow()
@@ -120,44 +102,58 @@ namespace Road_Racers_1._0
             // Motor movement
             if (UpKeyPressed)
             {
-                MotorSpeedY -= Speed; // Change direction for moving up
+                Canvas.SetTop(Motor, Canvas.GetTop(Motor) - 5);
+                falling = true;
             }
 
             if (RightKeyPressed)
             {
-                MotorSpeedX += Speed; // Change direction for moving right
-            }
-
-            if (DownKeyPressed)
-            {
-                MotorSpeedY += Speed; // Change direction for moving down
+                Canvas.SetLeft(Motor, Canvas.GetLeft(Motor) + 10);
             }
             
             if (LeftKeyPressed)
             {
-                MotorSpeedX -= Speed; // Change direction for moving left
+                    Canvas.SetLeft(Motor, Canvas.GetLeft(Motor) - 10);
             }
 
             // Player movement
             if (UpArrowPressed)
             {
-                PlayerSpeedY -= Speed;
+                Canvas.SetTop(Player, Canvas.GetTop(Player) - 5);
+                falling = true;
             }
 
             if (RightArrowPressed)
             {
-                PlayerSpeedX += Speed;
-            }
-
-            if (DownArrowPressed)
-            {
-                PlayerSpeedY += Speed;
+                Canvas.SetLeft(Player, Canvas.GetLeft(Player) + 10);
             }
 
             if (LeftArrowPressed)
             {
-                PlayerSpeedX -= Speed;
+                Canvas.SetLeft(Player, Canvas.GetLeft(Player) - 10);
             }
+
+            if (falling)
+            {
+                Canvas.SetTop(Player, Canvas.GetTop(Player) + 1);
+                Canvas.SetTop(Motor, Canvas.GetTop(Motor) + 1);
+            }
+
+            Rect PlayerRect = new Rect(Canvas.GetLeft(Player), Canvas.GetTop(Player), Player.Width, Player.Height);
+            Rect BarrierRect = new Rect(Canvas.GetLeft(Barrier), Canvas.GetTop(Barrier), Barrier.Width, Barrier.Height);
+            if (PlayerRect.IntersectsWith(BarrierRect))
+            {
+                falling = false;
+            }
+
+            Rect MotorRect = new Rect(Canvas.GetLeft(Motor), Canvas.GetTop(Motor), Motor.Width, Motor.Height);
+            Rect Barrier2Rect = new Rect(Canvas.GetLeft(Barrier2), Canvas.GetTop(Barrier2), Barrier2.Width, Barrier2.Height);
+
+            if (MotorRect.IntersectsWith(Barrier2Rect))
+            {
+                falling = false;
+            }
+
 
             // Apply friction to both the motor and the player
             MotorSpeedX = MotorSpeedX * Friction;
