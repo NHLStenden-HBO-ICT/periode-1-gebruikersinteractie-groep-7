@@ -8,7 +8,7 @@
         Title="MainWindow" Height="450" Width="800">
 
     <Canvas x:Name="GameScreen" Focusable="True" KeyUp="KeyboardUp" KeyDown="KeyboardDown">
-        <Rectangle Canvas.Left="95" Canvas.Top="276" Fill="Red" Width="50" Height="50" x:Name="Red" ></Rectangle>
+        <Rectangle Canvas.Left="95" Canvas.Top="276" Fill="Green" Width="50" Height="50" x:Name="Red" ></Rectangle>
         <Rectangle x:Name="Blue" Fill="Blue" Width="50" Height="50" Canvas.Left="95" Canvas.Top="107" HorizontalAlignment="Left" VerticalAlignment="Center"  ></Rectangle>
         <Rectangle x:Name="Roof" Canvas.Top="0" Height="5" Width="2000" Fill="Black" HorizontalAlignment="Left" VerticalAlignment="Center"></Rectangle>
         <Rectangle x:Name="Barrier" Canvas.Top="215" Height="5" Width="2000" Fill="Black" HorizontalAlignment="Left" VerticalAlignment="Center"></Rectangle>
