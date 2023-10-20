@@ -1,20 +1,20 @@
-﻿<Window x:Class="Road_Racers_1._0.MainWindow"
+﻿<Window x:Class="Road_Racers1._0.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Road_Racers_1._0"
+        xmlns:local="clr-namespace:Test_game"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-
-    <Canvas x:Name="GameScreen" Focusable="True" KeyUp="KeyboardUp" KeyDown="KeyboardDown">
-        <Rectangle Canvas.Left="95" Canvas.Top="276" Fill="Green" Width="50" Height="50" x:Name="Red" ></Rectangle>
-        <Rectangle x:Name="Blue" Fill="Blue" Width="50" Height="50" Canvas.Left="95" Canvas.Top="107" HorizontalAlignment="Left" VerticalAlignment="Center"  ></Rectangle>
-        <Rectangle x:Name="Roof" Canvas.Top="0" Height="5" Width="2000" Fill="Black" HorizontalAlignment="Left" VerticalAlignment="Center"></Rectangle>
-        <Rectangle x:Name="Barrier" Canvas.Top="215" Height="5" Width="2000" Fill="Black" HorizontalAlignment="Left" VerticalAlignment="Center"></Rectangle>
-        <Rectangle x:Name="Barrier2" Canvas.Top="430" Height="5" Width="2000" Fill="Black" HorizontalAlignment="Left" VerticalAlignment="Center"></Rectangle>
-        <Image Source="Bike.png" Width="50" Height="50" Canvas.Top="107" x:Name="Player" Canvas.Left="150"/>
-        <Image Source="Cartmotor.png" Width="50" Height="60" Canvas.Top="285" x:Name="Motor" Canvas.Left="150" RenderTransformOrigin="0.574,3.477" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-    </Canvas>
+	<Canvas x:Name="GameScreen" Focusable="True" KeyUp="KeyboardUp" KeyDown="KeyboardDown">
+		<Rectangle Canvas.Left="95" Canvas.Top="276" Fill="Red" Width="50" Height="50" x:Name="Red" ></Rectangle>
+		<Rectangle x:Name="JumpPad" Fill="Brown" Width="20" Height="10" Canvas.Left="296" Canvas.Top="205" HorizontalAlignment="Center" VerticalAlignment="Top"></Rectangle>
+		<Rectangle x:Name="JumpPad_Copy" Fill="Brown" Width="20" Height="10" Canvas.Left="296" Canvas.Top="420" HorizontalAlignment="Center" VerticalAlignment="Top"></Rectangle>
+		<Rectangle x:Name="Blue" Fill="Blue" Width="50" Height="50" Canvas.Left="95" Canvas.Top="107" HorizontalAlignment="Left" VerticalAlignment="Center"  ></Rectangle>
+		<Rectangle x:Name="Roof" Canvas.Top="0" Height="5" Width="2000" Fill="Black" HorizontalAlignment="Left" VerticalAlignment="Center"></Rectangle>
+		<Rectangle x:Name="Barrier" Canvas.Top="215" Height="5" Width="2000" Fill="Black" HorizontalAlignment="Left" VerticalAlignment="Center"></Rectangle>
+		<Rectangle x:Name="Barrier2" Canvas.Top="430" Height="5" Width="2000" Fill="Black" HorizontalAlignment="Left" VerticalAlignment="Center"></Rectangle>
+		<Image Source="Cartmotor.png" Width="50" Height="27" Canvas.Top="397" x:Name="Motor" Canvas.Left="95" RenderTransformOrigin="0.574,3.477" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+		<Image Source="Bike.png" Width="50" Height="50" Canvas.Top="170" x:Name="Player" Canvas.Left="95" RenderTransformOrigin="0.672,0.181" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+	</Canvas>
 </Window>
-
