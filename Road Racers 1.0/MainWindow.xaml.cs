@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
-namespace Road_Racers1._0
+namespace Road_Racers_1._0
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
